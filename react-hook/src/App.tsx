@@ -3,6 +3,7 @@ import { UserCard } from "./components/UserCard";
 import type { User } from "./types/api/user";
 import { useState } from "react";
 import type { userProfile } from "./types/userProfile";
+import { useAllUsers } from "./hooks/useAllUsers";
 
 const user = {
   id: 1,
@@ -12,30 +13,32 @@ const user = {
 };
 
 export const App = () => {
-  const [userProfiles, setUserProfiles] = useState<Array<userProfile>>();
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  // const [userProfiles, setUserProfiles] = useState<Array<userProfile>>();
+  // const [loading, setLoading] = useState(false);
+  // const [error, setError] = useState(false);
 
-  const onClickFetchUser = () => {
-    setLoading(true);
-    axios
-      .get<Array<User>>("https://jsonplaceholder.typicode.com/users")
-      .then((res) => {
-        const data = res.data.map((user) => ({
-          id: user.id,
-          name: `${user.name}(${user.username})`,
-          email: user.email,
-          address: `${user.address.city} ${user.address.suite} ${user.address.street}`,
-        }));
-        setUserProfiles(data);
-      })
-      .catch(() => {
-        setError(true);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
+  // const onClickFetchUser = () => {
+  // //   setLoading(true);
+  //   axios
+  //     .get<Array<User>>("https://jsonplaceholder.typicode.com/users")
+  //     .then((res) => {
+  //       const data = res.data.map((user) => ({
+  //         id: user.id,
+  //         name: `${user.name}(${user.username})`,
+  //         email: user.email,
+  //         address: `${user.address.city} ${user.address.suite} ${user.address.street}`,
+  //       }));
+  //       setUserProfiles(data);
+  //     })
+  //     .catch(() => {
+  //       setError(true);
+  //     })
+  //     .finally(() => {
+  //       setLoading(false);
+  //     });
+  // };
+  const { getUsers, userProfiles, loading, error } = useAllUsers();
+  const onClickFetchUser = () => getUsers();
   return (
     <div>
       <p>react hook practice</p>
