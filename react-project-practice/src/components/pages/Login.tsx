@@ -11,7 +11,6 @@ export const Login: FC = memo(() => {
   const { login, loading } = useAuth();
 
   const onClickLogin = () => login(userId);
-
   return (
     <Flex align={"center"} justify={"center"} height={"100vh"} bg={"gray"}>
       <Box bg={"white"} w={"sm"} p={4} borderRadius={"md"} shadow={"md"}>
